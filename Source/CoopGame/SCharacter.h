@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "SCharacter.generated.h"
+
+class UCameraComponent;
+class USpringArmComponent;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -21,10 +25,20 @@ protected:
 	
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+	void BeginCrouch();
+	void EndCrouch();
+	void BeginJump();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
+	UCameraComponent* CameraComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
+	USpringArmComponent* StringArmComp;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
+
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
