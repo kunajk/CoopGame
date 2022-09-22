@@ -4,6 +4,7 @@
 #include "SWeapon.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 ASWeapon::ASWeapon()
@@ -33,20 +34,42 @@ void ASWeapon::Fire()
 
 		FVector shootDirection = eyeRot.Vector();
 		FVector traceEnd = eyeLoc + (shootDirection * 10000.0f);
+		FVector tracerEnd{traceEnd};
+		FVector MuzzleLocation = MeshComp->GetSocketLocation(MuzzleSocketName);
 		
 		FCollisionQueryParams params;
 		params.bTraceComplex = true;
 		
 		FHitResult hit;
-		bool wasHit = GetWorld()->LineTraceSingleByChannel(hit, eyeLoc, traceEnd, ECollisionChannel::ECC_Visibility, params);
+		bool wasHit = GetWorld()->LineTraceSingleByChannel(hit, MuzzleLocation, traceEnd, ECollisionChannel::ECC_Visibility, params);
 		if(wasHit)
 		{
 			AActor* hitActor = hit.GetActor();
-			UGameplayStatics::ApplyPointDamage(hitActor, 20.0f, shootDirection, hit, myOwner->GetInstigatorController(), this, DamageType);
-			DrawDebugSphere(GetWorld(), hit.ImpactPoint, 100.0f, 32, FColor::White, false, 1.0f, 0, 1.0f);
+			if(IsValid(hitActor))
+			{
+				UGameplayStatics::ApplyPointDamage(hitActor, 20.0f, shootDirection, hit, myOwner->GetInstigatorController(), this, DamageType);
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitActorEffect, hit.ImpactPoint, hit.ImpactNormal.Rotation());
+				tracerEnd = hit.ImpactPoint;
+			}
+			else
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, hit.ImpactPoint, hit.ImpactNormal.Rotation());
+			}
+
 		}
 
-		DrawDebugLine(GetWorld(), eyeLoc, traceEnd, FColor::White, false, 1.0f, 0, 1.0f);
+		//DrawDebugLine(GetWorld(), MuzzleLocation, traceEnd, FColor::White, false, 1.0f, 0, 1.0f);
+
+		UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComp, MuzzleSocketName);
+
+		if(TracerEffect)
+		{
+			UParticleSystemComponent* tracerComponent = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), TracerEffect, MuzzleLocation);
+			if(tracerComponent)
+			{
+				tracerComponent->SetVectorParameter("BeamEnd", tracerEnd);
+			}
+		}
 	}
 }
 
