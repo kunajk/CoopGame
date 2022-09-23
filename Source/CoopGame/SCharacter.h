@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "SCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
+class ASWeapon;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -31,7 +31,8 @@ protected:
 	void BeginJump();
 	void BeginZoom();
 	void EndZoom();
-
+	void Fire();
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
 	UCameraComponent* CameraComp;
 
@@ -47,6 +48,14 @@ protected:
 	float ZoomInterpSpeed{20.0};
 
 	float DefaultFOV{90.0f};
+
+	ASWeapon* CurrentWeapon;
+
+	UPROPERTY(EditDefaultsOnly, Category="Coop|Layer");
+	TSubclassOf<ASWeapon> StartWeaponClass;
+
+	UPROPERTY(VisibleDefaultsOnly, Category="Coop|Config")
+	FName WeapomAttachmenSocketName;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
