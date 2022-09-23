@@ -29,12 +29,24 @@ protected:
 	void BeginCrouch();
 	void EndCrouch();
 	void BeginJump();
+	void BeginZoom();
+	void EndZoom();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
 	UCameraComponent* CameraComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
 	USpringArmComponent* StringArmComp;
+
+	bool WantsToZoom{false};
+
+	UPROPERTY(EditDefaultsOnly, Category="Coop|Config")
+	float ZoomedFOV{65.0f};
+
+	UPROPERTY(EditDefaultsOnly, Category="Coop|Config", meta=(ClampMin=0.1, ClampMax=100.0))
+	float ZoomInterpSpeed{20.0};
+
+	float DefaultFOV{90.0f};
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
