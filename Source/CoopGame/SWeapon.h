@@ -9,6 +9,7 @@
 class USkeletalMeshComponent;
 class UDamageType;
 class UParticleSystem;
+class UCameraShakeBase;
 
 UCLASS()
 class COOPGAME_API ASWeapon : public AActor
@@ -38,11 +39,18 @@ protected:
 	UParticleSystem* MuzzleEffect;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
-	UParticleSystem* ImpactEffect;
+	UParticleSystem* DefaultImpactEffect;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
+	UParticleSystem* FlashImpactEffect;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
 	UParticleSystem* HitActorEffect;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
 	UParticleSystem* TracerEffect;
+
+	UPROPERTY(EditDefaultsOnly, Category="Coop|Weapon")
+	TSubclassOf<UCameraShakeBase> FireShake;
+	
 };

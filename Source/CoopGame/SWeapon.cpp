@@ -3,8 +3,10 @@
 
 #include "SWeapon.h"
 
+#include "CoopGame.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
 
 int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef DebugWeapon(TEXT("COOP.DebugWeapons"), DebugWeaponDrawing, TEXT("Draw Debug lines for weapons"), ECVF_Cheat);
@@ -32,21 +34,38 @@ void ASWeapon::Fire()
 		
 		FCollisionQueryParams params;
 		params.bTraceComplex = true;
+		params.bReturnPhysicalMaterial = true;
+		
 		
 		FHitResult hit;
-		bool wasHit = GetWorld()->LineTraceSingleByChannel(hit, MuzzleLocation, traceEnd, ECollisionChannel::ECC_Visibility, params);
+		bool wasHit = GetWorld()->LineTraceSingleByChannel(hit, MuzzleLocation, traceEnd, ECollisionChannel::COLLISION_WEAPON, params);
 		if(wasHit)
 		{
 			AActor* hitActor = hit.GetActor();
 			if(IsValid(hitActor))
 			{
 				UGameplayStatics::ApplyPointDamage(hitActor, 20.0f, shootDirection, hit, myOwner->GetInstigatorController(), this, DamageType);
-				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitActorEffect, hit.ImpactPoint, hit.ImpactNormal.Rotation());
-				tracerEnd = hit.ImpactPoint;
 			}
-			else
+			
+			tracerEnd = hit.ImpactPoint;
+			
+			UParticleSystem* selectedParticle;
+			EPhysicalSurface surfaceType = UPhysicalMaterial::DetermineSurfaceType(hit.PhysMaterial.Get());
+
+			switch(surfaceType)
 			{
-				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, hit.ImpactPoint, hit.ImpactNormal.Rotation());
+			case SURFACE_FLESHDEFAULT:
+			case SURFACE_FLESHVULNERABLE:
+				selectedParticle = FlashImpactEffect;
+				break;
+			default:
+				selectedParticle = DefaultImpactEffect;
+				break;
+			}
+
+			if(selectedParticle)
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), selectedParticle, hit.ImpactPoint, hit.ImpactNormal.Rotation());
 			}
 
 		}
@@ -73,6 +92,17 @@ void ASWeapon::PlayFireEffects(FVector& MuzzleLocation, FVector& TraceEnd)
 			tracerComponent->SetVectorParameter("BeamEnd", TraceEnd);
 		}
 	}
+
+	APawn* owner = Cast<APawn>(GetOwner());
+	if(owner)
+	{
+		APlayerController* pc = Cast<APlayerController>(owner->GetController());
+		if(pc)
+		{
+			pc->ClientStartCameraShake(FireShake);
+		}
+	}
+	
 }
 
 
