@@ -15,14 +15,16 @@ UCLASS()
 class COOPGAME_API ASWeapon : public AActor
 {
 	GENERATED_BODY()
-	
+
 public:	
 	// Sets default values for this actor's properties
 	ASWeapon();
 
-	UFUNCTION(BlueprintCallable, Category="Weapon")
-	virtual void Fire();
+	void StartFire();
+	void StopFire();
 protected:
+
+	void BeginPlay() override;
 
 	void PlayFireEffects(FVector& MuzzleLocation, FVector& TraceEnd);
 
@@ -52,5 +54,15 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="Coop|Weapon")
 	TSubclassOf<UCameraShakeBase> FireShake;
-	
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
+	float BaseDamage{6.0f};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
+	int32 BulletsPerMinute{600};
+private:
+	virtual void Fire();
+	float LastTimeFired{0.0f};
+	float TimeBetweenShots;
+	FTimerHandle TimerHandle_TimeBetweenShots;
 };
