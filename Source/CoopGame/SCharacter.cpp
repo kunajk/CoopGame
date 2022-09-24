@@ -3,10 +3,13 @@
 
 #include "SCharacter.h"
 
+#include "CoopGame.h"
+#include "SHealthComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "SWeapon.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -25,6 +28,11 @@ ASCharacter::ASCharacter()
 
     ACharacter::GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	WeapomAttachmenSocketName = "WeaponSocket";
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
+
+	HealthComponent = CreateDefaultSubobject<USHealthComponent>(TEXT("HealthComponent"));
+	
 }
 
 // Called when the game starts or when spawned
@@ -42,6 +50,8 @@ void ASCharacter::BeginPlay()
 		CurrentWeapon->SetOwner(this);
 		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeapomAttachmenSocketName);
 	}
+
+	HealthComponent->OnHealthChanged.AddDynamic(this, &ASCharacter::HandleHealthChanged);
 }
 
 FVector ASCharacter::GetPawnViewLocation() const
@@ -129,3 +139,17 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASCharacter::StopFire);
 }
 
+void ASCharacter::HandleHealthChanged(USHealthComponent* MyHealthComponent, float Health, float HealthDelta,
+	const UDamageType* DamageType, AController* Instigated, AActor* DamageCauser)
+{
+	if(Health <= 0.0f && !IsDead)
+	{
+		IsDead = true;
+
+		GetMovementComponent()->StopMovementImmediately();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		DetachFromControllerPendingDestroy();
+		SetLifeSpan(10.0f);
+	}
+}

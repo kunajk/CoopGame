@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class ASWeapon;
+class USHealthComponent;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -40,6 +41,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
 	USpringArmComponent* StringArmComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
+	USHealthComponent* HealthComponent;
+
 	bool WantsToZoom{false};
 
 	UPROPERTY(EditDefaultsOnly, Category="Coop|Config")
@@ -52,11 +56,18 @@ protected:
 
 	ASWeapon* CurrentWeapon;
 
+	UPROPERTY(BlueprintReadOnly, Category="Coop|Player")
+	bool IsDead{false};
+	
 	UPROPERTY(EditDefaultsOnly, Category="Coop|Layer");
 	TSubclassOf<ASWeapon> StartWeaponClass;
 
 	UPROPERTY(VisibleDefaultsOnly, Category="Coop|Config")
 	FName WeapomAttachmenSocketName;
+
+	UFUNCTION()
+	void HandleHealthChanged(USHealthComponent* MyHealthComponent, float Health, float HealthDelta, const UDamageType* DamageType, AController* Instigated, AActor* DamageCauser);
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -66,3 +77,5 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 };
+
+
