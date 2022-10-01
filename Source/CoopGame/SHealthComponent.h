@@ -30,14 +30,10 @@ protected:
 	UFUNCTION()
 	void HandleTakeAnyDamage(AActor* Actor, float X, const UDamageType* Damage, AController* Controller, AActor* Actor1);
 	
-	UPROPERTY(BlueprintReadOnly, Category="Coop|HealthCOmponent")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category="Coop|HealthCOmponent")
 	float Health{100.0f};
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Coop|HealthCOmponent")
 	float DefaultHealth{100.0f};
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	
 };

@@ -27,6 +27,9 @@ protected:
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComponent, float Health, float HealthDelta, const UDamageType* DamageType, AController* Instigated, AActor* DamageCauser);
 
+	UFUNCTION()
+	void OnRep_Exploded();
+	
 	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
 	USHealthComponent* HealthComp;
 
@@ -36,6 +39,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
 	URadialForceComponent* RadialForceComp;
 
+	UPROPERTY(ReplicatedUsing=OnRep_Exploded)
 	bool bExploded{false};
 
 	UPROPERTY(EditDefaultsOnly, Category="Coop|FX")
@@ -47,3 +51,5 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Coop|FX")
 	UMaterialInterface* ExplodedMaterial;
 };
+
+

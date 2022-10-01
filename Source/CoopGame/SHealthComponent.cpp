@@ -3,14 +3,12 @@
 
 #include "SHealthComponent.h"
 
+#include "Net/UnrealNetwork.h"
+
 // Sets default values for this component's properties
 USHealthComponent::USHealthComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	SetIsReplicatedByDefault(true);
 }
 
 
@@ -19,14 +17,18 @@ void USHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Health = DefaultHealth;;
+
+	if(GetOwnerRole() != ROLE_Authority)
+		return;
+	
 	AActor* myOwner = GetOwner();
 	if(myOwner)
 	{
 		myOwner->OnTakeAnyDamage.AddDynamic(this, &USHealthComponent::HandleTakeAnyDamage);
 	}
-	
-	Health = DefaultHealth;;
 }
+
 
 void USHealthComponent::HandleDie()
 {
@@ -54,12 +56,9 @@ void USHealthComponent::HandleTakeAnyDamage(AActor* Actor, float Damage, const U
 	}
 }
 
-
-// Called every frame
-void USHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(USHealthComponent, Health);
 }
 

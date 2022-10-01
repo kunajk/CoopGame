@@ -24,6 +24,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(class TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	void MoveForward(float Value);
 	void MoveRight(float Value);
@@ -54,9 +55,10 @@ protected:
 
 	float DefaultFOV{90.0f};
 
+	UPROPERTY(Replicated)
 	ASWeapon* CurrentWeapon;
 
-	UPROPERTY(BlueprintReadOnly, Category="Coop|Player")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category="Coop|Player")
 	bool IsDead{false};
 	
 	UPROPERTY(EditDefaultsOnly, Category="Coop|Layer");
