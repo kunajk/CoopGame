@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "STrackerBot.generated.h"
 
+class UStaticMeshComponent;
+
 UCLASS()
 class COOPGAME_API ASTrackerBot : public APawn
 {
@@ -14,16 +16,25 @@ class COOPGAME_API ASTrackerBot : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ASTrackerBot();
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(VisibleDefaultsOnly, Category="Coop|Components")
+	UStaticMeshComponent* MeshComp;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	FVector GetNextPatchPoint();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	float MoveForce{1000.0f};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	float RequirdDistanceToTarget{100};
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	bool UseVelocityChange{false};
+private:
+	FVector NextPatchPoint; 
 };
