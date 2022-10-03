@@ -12,6 +12,7 @@ class USHealthComponent;
 class UMaterialInstanceDynamic;
 class UParticleSystem;
 class USphereComponent;
+class USoundBase;
 
 UCLASS()
 class COOPGAME_API ASTrackerBot : public APawn
@@ -60,6 +61,18 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
 	float ExplosionDamage{100};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	float SelfDamageInterval{0.25};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	float SelfDamageValue{5};
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop|Sounds")
+	USoundBase* SelfDestructSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop|Sounds")
+	USoundBase* ExplodeSound;
 private:
 	void SelfDestruct();
 	void DamageSelf();
@@ -67,6 +80,8 @@ private:
 	FVector NextPatchPoint;
 	bool bExploded{false};
 	bool bStartedSelfDestruction{false};
+
+	UPROPERTY()
 	UMaterialInstanceDynamic* MatInst;
 
 	FTimerHandle TimerHandle_SelfDamage;

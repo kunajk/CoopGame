@@ -27,10 +27,10 @@ ASTrackerBot::ASTrackerBot()
 
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	SphereComp->SetSphereRadius(200);
-	SphereComp->SetupAttachment(RootComponent);
 	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereComp->SetCollisionResponseToAllChannels(ECR_Ignore);
 	SphereComp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	SphereComp->SetupAttachment(MeshComp);
 }
 
 // Called when the game starts or when spawned
@@ -81,12 +81,14 @@ void ASTrackerBot::SelfDestruct()
 	ignoredActors.Add(this);
 	UGameplayStatics::ApplyRadialDamage(this, ExplosionDamage, GetActorLocation(), ExplosionRadius, nullptr, ignoredActors, this, GetInstigatorController(), true);
 	//DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 32, FColor::Red, false, 2.0f, 0,1.0f);
+	UGameplayStatics::SpawnSoundAtLocation(this, ExplodeSound, GetActorLocation());
+	
 	Destroy();
 }
 
 void ASTrackerBot::DamageSelf()
 {
-	UGameplayStatics::ApplyDamage(this, 20.0f, GetInstigatorController(), this, nullptr);
+	UGameplayStatics::ApplyDamage(this, SelfDamageValue, GetInstigatorController(), this, nullptr);
 }
 
 // Called every frame
@@ -123,7 +125,8 @@ void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)
 
 	if(IsValid(playerPawn))
 	{
-		GetWorldTimerManager().SetTimer(TimerHandle_SelfDamage, this, &ASTrackerBot::SelfDestruct, 0.5f, true, 0.0f);
+		GetWorldTimerManager().SetTimer(TimerHandle_SelfDamage, this, &ASTrackerBot::DamageSelf, SelfDamageInterval, true, 0.0f);
 		bStartedSelfDestruction = true;
+		UGameplayStatics::SpawnSoundAttached(SelfDestructSound, RootComponent);
 	}
 }
