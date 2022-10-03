@@ -20,7 +20,7 @@ ASTrackerBot::ASTrackerBot()
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetCanEverAffectNavigation(false);
 	MeshComp->SetSimulatePhysics(true);
-	MeshComp->SetupAttachment(RootComponent);
+	SetRootComponent(MeshComp);
 
 	HealthComp = CreateDefaultSubobject<USHealthComponent>(TEXT("HealthComponent"));
 	HealthComp->OnHealthChanged.AddDynamic(this, &ASTrackerBot::HandleTakeDamage);
