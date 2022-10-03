@@ -3,10 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Pawn.h"
 #include "STrackerBot.generated.h"
 
 class UStaticMeshComponent;
+class USHealthComponent;
+class UMaterialInstanceDynamic;
+class UParticleSystem;
+class USphereComponent;
 
 UCLASS()
 class COOPGAME_API ASTrackerBot : public APawn
@@ -17,6 +22,7 @@ public:
 	// Sets default values for this pawn's properties
 	ASTrackerBot();
 	virtual void Tick(float DeltaTime) override;
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,9 +30,22 @@ protected:
 
 	UPROPERTY(VisibleDefaultsOnly, Category="Coop|Components")
 	UStaticMeshComponent* MeshComp;
+	
+	UPROPERTY(VisibleDefaultsOnly, Category="Coop|Components")
+	USHealthComponent* HealthComp;
+
+	UPROPERTY(VisibleDefaultsOnly, Category="Coop|Components")
+	USphereComponent* SphereComp;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	UParticleSystem* ExplosionEffect;
 
 	FVector GetNextPatchPoint();
+	
+	UFUNCTION()
+	void HandleTakeDamage(USHealthComponent* UsHealthComponent, float X, float Arg, const UDamageType* Damage, AController* AiController, AActor* Actor);
 
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
 	float MoveForce{1000.0f};
 
@@ -35,6 +54,22 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
 	bool UseVelocityChange{false};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	float ExplosionRadius{200};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
+	float ExplosionDamage{100};
 private:
-	FVector NextPatchPoint; 
+	void SelfDestruct();
+	void DamageSelf();
+	
+	FVector NextPatchPoint;
+	bool bExploded{false};
+	bool bStartedSelfDestruction{false};
+	UMaterialInstanceDynamic* MatInst;
+
+	FTimerHandle TimerHandle_SelfDamage;
+	
 };
+

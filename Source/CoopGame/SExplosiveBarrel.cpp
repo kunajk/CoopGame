@@ -52,6 +52,10 @@ void ASExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComponent, floa
 		MeshComp->AddImpulse(boostIntensivity, NAME_None, true);
 		
 		RadialForceComp->FireImpulse();
+
+		TArray<AActor*> ignoredActors;
+		ignoredActors.Add(this);
+		UGameplayStatics::ApplyRadialDamage(this, 100, GetActorLocation(), 200, nullptr, ignoredActors, this, GetInstigatorController(), true);
 	}
 }
 
