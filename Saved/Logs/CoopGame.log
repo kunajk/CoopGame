@@ -1134,3 +1134,124 @@ LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
 [2022.10.03-14.41.09:382][ 58]LogUObjectHash: Compacting FUObjectHashTables data took   0.51ms
 [2022.10.03-14.41.09:409][ 59]LogPlayLevel: Display: Destroying online subsystem :Context_1
 [2022.10.03-14.41.11:445][283]LogViewport: Scene viewport resized to 2035x1218, mode Windowed.
+[2022.10.03-15.29.09:908][754]LogSlate: Took 0.000181 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2022.10.03-15.29.09:916][754]LogSlate: Took 0.000169 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2022.10.03-15.35.45:814][697]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/SM_TrackerBot" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/SM_TrackerBot.uasset" SILENT=true
+[2022.10.03-15.35.45:820][697]LogPackageLocalizationCache: Processed 30 localized package path(s) for 1 prioritized culture(s) in 0.004717 seconds
+[2022.10.03-15.35.45:831][697]LogSavePackage: Moving output files for package: /Game/TrackerBot/SM_TrackerBot
+[2022.10.03-15.35.45:831][697]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/SM_TrackerBotFAC0EF154CDF341D965D899057852B4F.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/SM_TrackerBot.uasset'
+[2022.10.03-15.35.45:832][697]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Meshes/SM_TrackerBot" FILE="../../../../../../Projects/CoopGame/Content/Meshes/SM_TrackerBot.uasset" SILENT=true
+[2022.10.03-15.35.45:833][697]LogSavePackage: Moving output files for package: /Game/Meshes/SM_TrackerBot
+[2022.10.03-15.35.45:834][697]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/SM_TrackerBot887066C74BC9F97369ED8FB52148B2B4.tmp' to '../../../../../../Projects/CoopGame/Content/Meshes/SM_TrackerBot.uasset'
+[2022.10.03-15.35.45:835][697]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/M_TrackerBot" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/M_TrackerBot.uasset" SILENT=true
+[2022.10.03-15.35.45:842][697]LogSavePackage: Moving output files for package: /Game/TrackerBot/M_TrackerBot
+[2022.10.03-15.35.45:842][697]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/M_TrackerBot1AAAC82548D4CBE0C8D7B8B0A3356CC4.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/M_TrackerBot.uasset'
+[2022.10.03-15.35.45:843][697]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Meshes/M_TrackerBot" FILE="../../../../../../Projects/CoopGame/Content/Meshes/M_TrackerBot.uasset" SILENT=true
+[2022.10.03-15.35.45:845][697]LogSavePackage: Moving output files for package: /Game/Meshes/M_TrackerBot
+[2022.10.03-15.35.45:845][697]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/M_TrackerBotA3C7C54F442BD460B8868B89E1A10FA1.tmp' to '../../../../../../Projects/CoopGame/Content/Meshes/M_TrackerBot.uasset'
+[2022.10.03-15.35.46:325][697]AssetCheck: New page: Asset Save: multiple assets
+[2022.10.03-15.35.46:326][697]LogContentValidation: Display: Validating Material /Game/TrackerBot/M_TrackerBot.M_TrackerBot
+[2022.10.03-15.35.46:326][697]LogContentValidation: Display: Validating StaticMesh /Game/TrackerBot/SM_TrackerBot.SM_TrackerBot
+[2022.10.03-15.35.46:326][697]LogContentValidation: Display: Validating ObjectRedirector /Game/Meshes/M_TrackerBot.M_TrackerBot
+[2022.10.03-15.35.46:326][697]LogContentValidation: Display: Validating ObjectRedirector /Game/Meshes/SM_TrackerBot.SM_TrackerBot
+[2022.10.03-15.35.51:718][244]LogActor: Warning: BP_TrackerBot_C /Engine/Transient.World_2:PersistentLevel.BP_TrackerBot_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2022.10.03-15.35.51:770][246]LogActor: Warning: SetReplicates called on non-initialized actor BP_Rifle_C_0. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2022.10.03-15.35.51:770][246]LogActor: Warning: BP_Rifle_C /Engine/Transient.World_4:PersistentLevel.BP_Rifle_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2022.10.03-15.35.51:816][248]LogActor: Warning: SetReplicates called on non-initialized actor BP_ExplosiveBarrel_C_0. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2022.10.03-15.35.51:816][248]LogActor: Warning: BP_ExplosiveBarrel_C /Engine/Transient.World_6:PersistentLevel.BP_ExplosiveBarrel_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2022.10.03-15.35.57:262][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.BP_TrackerBot:UserConstructionScript.K2Node_FunctionEntry_0' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:262][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.BP_TrackerBot_C' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:262][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.SKEL_BP_TrackerBot_C:FindNextPathPoint' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:263][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.SKEL_BP_TrackerBot_C:ReceiveBeginPlay' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:263][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.SKEL_BP_TrackerBot_C:UserConstructionScript' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:263][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.SKEL_BP_TrackerBot_C' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:263][697]LogMetaData: Removing '/Game/TrackerBot/BP_TrackerBot.BP_TrackerBot_C:ReceiveBeginPlay' ref from Metadata '/Game/Blueprints/BP_TrackerBot.PackageMetaData'
+[2022.10.03-15.35.57:291][697]LogActor: Warning: BP_TrackerBot_C /Engine/Transient.World_7:PersistentLevel.BP_TrackerBot_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2022.10.03-15.35.57:319][697]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/BP_TrackerBot" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/BP_TrackerBot.uasset" SILENT=true
+[2022.10.03-15.35.57:331][697]LogSavePackage: Moving output files for package: /Game/TrackerBot/BP_TrackerBot
+[2022.10.03-15.35.57:331][697]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/BP_TrackerBot39F07B0E48DDCCA439A5DFA4C649DCE3.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/BP_TrackerBot.uasset'
+[2022.10.03-15.35.57:333][697]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_TrackerBot" FILE="../../../../../../Projects/CoopGame/Content/Blueprints/BP_TrackerBot.uasset" SILENT=true
+[2022.10.03-15.35.57:334][697]LogSavePackage: Moving output files for package: /Game/Blueprints/BP_TrackerBot
+[2022.10.03-15.35.57:335][697]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/BP_TrackerBot2CC7DE714B374F91B6FCE9815BF9EA03.tmp' to '../../../../../../Projects/CoopGame/Content/Blueprints/BP_TrackerBot.uasset'
+[2022.10.03-15.35.57:751][697]AssetCheck: New page: Asset Save: multiple assets
+[2022.10.03-15.35.57:752][697]LogContentValidation: Display: Validating Blueprint /Game/TrackerBot/BP_TrackerBot.BP_TrackerBot
+[2022.10.03-15.35.57:752][697]LogContentValidation: Display: Validating ObjectRedirector /Game/Blueprints/BP_TrackerBot.BP_TrackerBot
+[2022.10.03-15.35.57:752][697]LogContentValidation: Display: Validating ObjectRedirector /Game/Blueprints/BP_TrackerBot.Default__BP_TrackerBot_C
+[2022.10.03-15.35.57:752][697]LogContentValidation: Display: Validating ObjectRedirector /Game/Blueprints/BP_TrackerBot.BP_TrackerBot_C
+[2022.10.03-15.37.10:512][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\DroneTracker_explodewarning.wav)
+[2022.10.03-15.37.10:519][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave DroneTracker_explodewarning...
+[2022.10.03-15.37.10:519][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/DroneTracker_explodewarning.DroneTracker_explodewarning will be modified from 40 to 40.
+[2022.10.03-15.37.10:526][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 130536 while cooking SoundWave /Game/TrackerBot/Audio/DroneTracker_explodewarning.DroneTracker_explodewarning.
+[2022.10.03-15.37.10:526][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/DroneTracker_explodewarning.DroneTracker_explodewarning: 262144
+[2022.10.03-15.37.10:630][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\DroneTracker_idle.wav)
+[2022.10.03-15.37.10:631][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave DroneTracker_idle...
+[2022.10.03-15.37.10:632][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/DroneTracker_idle.DroneTracker_idle will be modified from 40 to 40.
+[2022.10.03-15.37.10:636][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 73660 while cooking SoundWave /Game/TrackerBot/Audio/DroneTracker_idle.DroneTracker_idle.
+[2022.10.03-15.37.10:637][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/DroneTracker_idle.DroneTracker_idle: 262144
+[2022.10.03-15.37.10:752][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\DroneTracker_spotted.wav)
+[2022.10.03-15.37.10:753][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave DroneTracker_spotted...
+[2022.10.03-15.37.10:753][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/DroneTracker_spotted.DroneTracker_spotted will be modified from 40 to 40.
+[2022.10.03-15.37.10:759][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 119952 while cooking SoundWave /Game/TrackerBot/Audio/DroneTracker_spotted.DroneTracker_spotted.
+[2022.10.03-15.37.10:759][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/DroneTracker_spotted.DroneTracker_spotted: 262144
+[2022.10.03-15.37.10:859][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\Explosion01.wav)
+[2022.10.03-15.37.10:860][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave Explosion01...
+[2022.10.03-15.37.10:860][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/Explosion01.Explosion01 will be modified from 40 to 40.
+[2022.10.03-15.37.10:874][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 279632 while cooking SoundWave /Game/TrackerBot/Audio/Explosion01.Explosion01.
+[2022.10.03-15.37.10:876][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/Explosion01.Explosion01: 262144
+[2022.10.03-15.37.10:991][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\ball_roll_01g.wav)
+[2022.10.03-15.37.10:992][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave ball_roll_01g...
+[2022.10.03-15.37.10:992][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/ball_roll_01g.ball_roll_01g will be modified from 40 to 40.
+[2022.10.03-15.37.10:992][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 6634 while cooking SoundWave /Game/TrackerBot/Audio/ball_roll_01g.ball_roll_01g.
+[2022.10.03-15.37.10:993][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/ball_roll_01g.ball_roll_01g: 262144
+[2022.10.03-15.37.11:085][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\ball_roll_02_loop.wav)
+[2022.10.03-15.37.11:087][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave ball_roll_02_loop...
+[2022.10.03-15.37.11:088][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/ball_roll_02_loop.ball_roll_02_loop will be modified from 40 to 40.
+[2022.10.03-15.37.11:103][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 443574 while cooking SoundWave /Game/TrackerBot/Audio/ball_roll_02_loop.ball_roll_02_loop.
+[2022.10.03-15.37.11:105][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/ball_roll_02_loop.ball_roll_02_loop: 262144
+[2022.10.03-15.37.11:219][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\ball_roll_03_loop.wav)
+[2022.10.03-15.37.11:223][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave ball_roll_03_loop...
+[2022.10.03-15.37.11:223][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/ball_roll_03_loop.ball_roll_03_loop will be modified from 40 to 40.
+[2022.10.03-15.37.11:274][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 953778 while cooking SoundWave /Game/TrackerBot/Audio/ball_roll_03_loop.ball_roll_03_loop.
+[2022.10.03-15.37.11:274][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/ball_roll_03_loop.ball_roll_03_loop: 262144
+[2022.10.03-15.37.11:393][435]LogFactory: FactoryCreateFile: SoundWave with ReimportSoundFactory (0 0 C:\Users\JanuszKunowski\Downloads\ball_roll_04_loop.wav)
+[2022.10.03-15.37.11:395][435]LogAudioDerivedData: Display: Building compressed audio format BINKA hash BINKA1000_StreamCache_Ver5027_MEM_65536MaxChnkSize_-10-1-1-1-1-1 wave ball_roll_04_loop...
+[2022.10.03-15.37.11:395][435]LogAudioDerivedData: Display: Compression Quality for SoundWave /Game/TrackerBot/Audio/ball_roll_04_loop.ball_roll_04_loop will be modified from 40 to 40.
+[2022.10.03-15.37.11:427][435]LogAudioDerivedData: Display: Updated SoundWave->RawPCMDataSize from 0 to 650660 while cooking SoundWave /Game/TrackerBot/Audio/ball_roll_04_loop.ball_roll_04_loop.
+[2022.10.03-15.37.11:428][435]LogAudio: Display: Chunk size for SoundWave /Game/TrackerBot/Audio/ball_roll_04_loop.ball_roll_04_loop: 262144
+[2022.10.03-15.37.11:429][435]LogSlate: Warning: Ignoring SetUserFocus because it's not an active modal Window (user 0 not set to SLevelEditor [LevelEditor.cpp(210)].
+[2022.10.03-15.37.17:250][746]LogStatusBar: Looking status bar with open content browser drawer...
+[2022.10.03-15.37.17:250][746]LogStatusBar: Using status bar: LevelEditor.StatusBar to dock content browser
+[2022.10.03-15.37.17:264][746]LogViewport: Scene viewport resized to 2035x790, mode Windowed.
+[2022.10.03-15.37.44:472][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/Explosion01" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/Explosion01.uasset" SILENT=true
+[2022.10.03-15.37.44:475][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/Explosion01
+[2022.10.03-15.37.44:475][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/Explosion012945890C40658A1C8F1A9EAEDC14DAE2.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/Explosion01.uasset'
+[2022.10.03-15.37.44:477][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/DroneTracker_spotted" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/DroneTracker_spotted.uasset" SILENT=true
+[2022.10.03-15.37.44:480][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/DroneTracker_spotted
+[2022.10.03-15.37.44:480][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/DroneTracker_spottedAA40B15B4FFDC04ECB17C98CD8536CF8.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/DroneTracker_spotted.uasset'
+[2022.10.03-15.37.44:482][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/DroneTracker_idle" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/DroneTracker_idle.uasset" SILENT=true
+[2022.10.03-15.37.44:485][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/DroneTracker_idle
+[2022.10.03-15.37.44:485][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/DroneTracker_idleB0F3CB454E80C8C4F204438DE9A2C4FB.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/DroneTracker_idle.uasset'
+[2022.10.03-15.37.44:487][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/DroneTracker_explodewarning" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/DroneTracker_explodewarning.uasset" SILENT=true
+[2022.10.03-15.37.44:490][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/DroneTracker_explodewarning
+[2022.10.03-15.37.44:490][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/DroneTracker_explodewarning6F8799E8461CAF3943BB29BD86A68B76.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/DroneTracker_explodewarning.uasset'
+[2022.10.03-15.37.44:493][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/ball_roll_01g" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_01g.uasset" SILENT=true
+[2022.10.03-15.37.44:495][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/ball_roll_01g
+[2022.10.03-15.37.44:495][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/ball_roll_01gA36F13264D1EE3D3DA0D0F93BCB204AE.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_01g.uasset'
+[2022.10.03-15.37.44:498][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/ball_roll_02_loop" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_02_loop.uasset" SILENT=true
+[2022.10.03-15.37.44:501][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/ball_roll_02_loop
+[2022.10.03-15.37.44:501][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/ball_roll_02_loopDC2A21084B6A49808E10EAA51CC77C87.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_02_loop.uasset'
+[2022.10.03-15.37.44:504][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/ball_roll_03_loop" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_03_loop.uasset" SILENT=true
+[2022.10.03-15.37.44:507][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/ball_roll_03_loop
+[2022.10.03-15.37.44:507][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/ball_roll_03_loopF251BD1642AEE541708FBFA968C215E8.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_03_loop.uasset'
+[2022.10.03-15.37.44:509][ 18]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/TrackerBot/Audio/ball_roll_04_loop" FILE="../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_04_loop.uasset" SILENT=true
+[2022.10.03-15.37.44:512][ 18]LogSavePackage: Moving output files for package: /Game/TrackerBot/Audio/ball_roll_04_loop
+[2022.10.03-15.37.44:512][ 18]LogSavePackage: Moving '../../../../../../Projects/CoopGame/Saved/ball_roll_04_loopD2A5356C453447528FF3F5984737A907.tmp' to '../../../../../../Projects/CoopGame/Content/TrackerBot/Audio/ball_roll_04_loop.uasset'
+[2022.10.03-15.37.45:016][ 18]AssetCheck: New page: Asset Save: multiple assets
+[2022.10.03-15.37.45:016][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/ball_roll_04_loop.ball_roll_04_loop
+[2022.10.03-15.37.45:016][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/ball_roll_03_loop.ball_roll_03_loop
+[2022.10.03-15.37.45:017][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/ball_roll_02_loop.ball_roll_02_loop
+[2022.10.03-15.37.45:017][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/ball_roll_01g.ball_roll_01g
+[2022.10.03-15.37.45:017][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/Explosion01.Explosion01
+[2022.10.03-15.37.45:017][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/DroneTracker_spotted.DroneTracker_spotted
+[2022.10.03-15.37.45:017][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/DroneTracker_explodewarning.DroneTracker_explodewarning
+[2022.10.03-15.37.45:017][ 18]LogContentValidation: Display: Validating SoundWave /Game/TrackerBot/Audio/DroneTracker_idle.DroneTracker_idle
