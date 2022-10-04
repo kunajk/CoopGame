@@ -3,6 +3,7 @@
 
 #include "ASPickup.h"
 
+#include "SPowerUP.h"
 #include "Components/DecalComponent.h"
 #include "Components/SphereComponent.h"
 
@@ -23,6 +24,14 @@ AASPickup::AASPickup()
 void AASPickup::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
+
+	if(PowerupInstance)
+	{
+		PowerupInstance->ActivatePowerup();
+		PowerupInstance = nullptr;
+
+		GetWorldTimerManager().SetTimer(TimerHandle_RespawnTimer, this, &AASPickup::Respawn, CooldownDuration);
+	}
 }
 
 // Called when the game starts or when spawned
@@ -30,8 +39,19 @@ void AASPickup::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Respawn();
+}
 
-	
+void AASPickup::Respawn()
+{
+	if(PowerupClass == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Powerupclass is null in %s. Please update your blueprint"), *GetName());
+		return;
+	}
+	FActorSpawnParameters params;
+	params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	PowerupInstance = GetWorld()->SpawnActor<ASPowerUP>(PowerupClass, GetTransform(), params); 
 }
 
 
