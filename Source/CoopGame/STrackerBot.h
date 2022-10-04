@@ -60,7 +60,7 @@ protected:
 	float ExplosionRadius{200};
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
-	float ExplosionDamage{100};
+	float BaseExplosionDamage{100};
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
 	float SelfDamageInterval{0.25};
@@ -76,11 +76,13 @@ protected:
 private:
 	void SelfDestruct();
 	void DamageSelf();
+	void OnCheckNearbyBots();
 	
 	FVector NextPatchPoint;
 	bool bExploded{false};
 	bool bStartedSelfDestruction{false};
-
+	int32 PowerLevel{0};
+	
 	UPROPERTY()
 	UMaterialInstanceDynamic* MatInst;
 

@@ -29,8 +29,11 @@ protected:
 	
 	UFUNCTION()
 	void HandleTakeAnyDamage(AActor* Actor, float X, const UDamageType* Damage, AController* Controller, AActor* Actor1);
+
+	UFUNCTION()
+	void OnRep_Health(float oldHealth);
 	
-	UPROPERTY(Replicated, BlueprintReadOnly, Category="Coop|HealthCOmponent")
+	UPROPERTY(ReplicatedUsing=OnRep_Health, BlueprintReadOnly, Category="Coop|HealthCOmponent")
 	float Health{100.0f};
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Coop|HealthCOmponent")
