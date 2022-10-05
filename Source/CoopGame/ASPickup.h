@@ -32,10 +32,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
 	UDecalComponent* DecalComp;
 
-	UPROPERTY(EditDefaultsOnly, Category="Coop|Config")
+	UPROPERTY(EditInstanceOnly, Category="Coop|Config")
 	TSubclassOf<ASPowerUP> PowerupClass;
 
-	UPROPERTY(EditDefaultsOnly, Category="Coop|Config")
+	UPROPERTY(EditInstanceOnly, Category="Coop|Config")
 	float CooldownDuration{0};
 
 	FTimerHandle TimerHandle_RespawnTimer;

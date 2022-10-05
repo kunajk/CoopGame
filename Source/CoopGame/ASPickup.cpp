@@ -19,15 +19,17 @@ AASPickup::AASPickup()
 	DecalComp->SetRelativeRotation(FRotator(90,0,0));
 	DecalComp->DecalSize = FVector(64,75,75);
 	DecalComp->SetupAttachment(RootComponent);
+
+	SetReplicates(true);
 }
 
 void AASPickup::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if(PowerupInstance)
+	if(HasAuthority() && PowerupInstance)
 	{
-		PowerupInstance->ActivatePowerup();
+		PowerupInstance->ActivatePowerup(OtherActor);
 		PowerupInstance = nullptr;
 
 		GetWorldTimerManager().SetTimer(TimerHandle_RespawnTimer, this, &AASPickup::Respawn, CooldownDuration);
@@ -39,7 +41,8 @@ void AASPickup::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Respawn();
+	if(HasAuthority())
+		Respawn();
 }
 
 void AASPickup::Respawn()

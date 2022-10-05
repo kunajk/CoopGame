@@ -12,6 +12,18 @@ USHealthComponent::USHealthComponent()
 }
 
 
+void USHealthComponent::Heal(float HealthToHeal)
+{
+	if(HealthToHeal <= 0.0f || Health <= 0.0f)
+	{
+		return;
+	}
+
+	Health = FMath::Clamp(Health + HealthToHeal, 0.0f, DefaultHealth);
+	OnHealthChanged.Broadcast(this, Health, -HealthToHeal, nullptr, nullptr, nullptr);
+	UE_LOG(LogTemp, Log, TEXT("Health changed: %s (+%s)"), *FString::SanitizeFloat(Health), *FString::SanitizeFloat(HealthToHeal));
+}
+
 // Called when the game starts
 void USHealthComponent::BeginPlay()
 {

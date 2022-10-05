@@ -21,6 +21,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="Coop|Events")
 	FOnHealthChangedSignature OnHealthChanged;
 
+	UFUNCTION(BlueprintCallable, Category="Coop|HealthCOmponent")
+	void Heal(float HealthToHeal);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -29,7 +32,7 @@ protected:
 	
 	UFUNCTION()
 	void HandleTakeAnyDamage(AActor* Actor, float X, const UDamageType* Damage, AController* Controller, AActor* Actor1);
-
+	
 	UFUNCTION()
 	void OnRep_Health(float oldHealth);
 	

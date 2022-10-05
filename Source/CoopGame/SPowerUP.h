@@ -6,6 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "SPowerUP.generated.h"
 
+class UPointLightComponent;
+class UStaticMeshComponent;
+class URotatingMovementComponent;
+class USceneComponent;
+
 UCLASS()
 class COOPGAME_API ASPowerUP : public AActor
 {
@@ -14,9 +19,10 @@ class COOPGAME_API ASPowerUP : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASPowerUP();
-
+	virtual void GetLifetimeReplicatedProps(class TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	UFUNCTION(BlueprintImplementableEvent, Category="Coop|Powerups")
-	void OnActivated();
+	void OnActivated(AActor* ActivatedFor);
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Coop|Powerups")
 	void OnPowerupTicked();
@@ -24,11 +30,28 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category="Coop|Powerups")
 	void OnExpired();
 
-	void ActivatePowerup();
-
+	void ActivatePowerup(AActor* ActivatedFor);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void OnRep_PowerupActiv();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Coop|Powerups")
+	void ActivatePowerupStateChanged(bool bNewIsActive);
+	
+	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
+	USceneComponent* ScneeRootComp;
+	
+	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
+	UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
+	UPointLightComponent* PointLightComp;
+
+	UPROPERTY(VisibleAnywhere, Category="Coop|Components")
+	URotatingMovementComponent* RotatingMovmentComp;
 
 	UPROPERTY(EditDefaultsOnly, Category="Coop|Powerups")
 	float PowerUpInterval{0};
@@ -41,6 +64,9 @@ protected:
 	
 	UPROPERTY()
 	FTimerHandle TimerHandle_PowerupTick;
+
+	UPROPERTY(ReplicatedUsing=OnRep_PowerupActiv)
+	bool bIsPowerupActiv{false};
 private:
 	UFUNCTION()
 	void OnTickPowerup();
