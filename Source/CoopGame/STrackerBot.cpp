@@ -163,14 +163,14 @@ void ASTrackerBot::Tick(float DeltaTime)
 		forceDirection *= MoveForce;
 		MeshComp->AddForce(forceDirection, NAME_None, UseVelocityChange);
 
-		DrawDebugDirectionalArrow(GetWorld(), GetActorLocation(), GetActorLocation() + forceDirection, 32.0f, FColor::Yellow);
+		//DrawDebugDirectionalArrow(GetWorld(), GetActorLocation(), GetActorLocation() + forceDirection, 32.0f, FColor::Yellow);
 	}
 	else
 	{
 		NextPatchPoint = GetNextPatchPoint();
-		DrawDebugString(GetWorld(), GetActorLocation(), TEXT("Target reached!"));
+		//DrawDebugString(GetWorld(), GetActorLocation(), TEXT("Target reached!"));
 	}
-	DrawDebugSphere(GetWorld(), NextPatchPoint, 20.0f, 12, FColor::Blue, false, 0.0f, 1.0f);
+	//DrawDebugSphere(GetWorld(), NextPatchPoint, 20.0f, 12, FColor::Blue, false, 0.0f, 1.0f);
 }
 
 void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)

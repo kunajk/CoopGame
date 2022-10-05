@@ -24,6 +24,11 @@ void USHealthComponent::Heal(float HealthToHeal)
 	UE_LOG(LogTemp, Log, TEXT("Health changed: %s (+%s)"), *FString::SanitizeFloat(Health), *FString::SanitizeFloat(HealthToHeal));
 }
 
+float USHealthComponent::GetHealth() const
+{
+	return Health;
+}
+
 // Called when the game starts
 void USHealthComponent::BeginPlay()
 {

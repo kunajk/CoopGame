@@ -24,6 +24,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Coop|HealthCOmponent")
 	void Heal(float HealthToHeal);
 
+	float GetHealth() const;
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
