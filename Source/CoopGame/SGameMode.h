@@ -6,9 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "SGameMode.generated.h"
 
-/**
- * 
- */
+enum class ESGameState : uint8;
+
 UCLASS()
 class COOPGAME_API ASGameMode : public AGameModeBase
 {
@@ -52,4 +51,7 @@ protected:
 
 	UPROPERTY()
 	bool bIsGameOver{false};
+
+private:
+	void SetGameState(ESGameState newGameState);
 };
