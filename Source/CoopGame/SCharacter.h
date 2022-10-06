@@ -33,7 +33,11 @@ protected:
 	void BeginJump();
 	void BeginZoom();
 	void EndZoom();
+
+	UFUNCTION(BlueprintCallable, Category="Coop|Player")
 	void StartFire();
+
+	UFUNCTION(BlueprintCallable, Category="Coop|Player")
 	void StopFire();
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Coop|Components")
