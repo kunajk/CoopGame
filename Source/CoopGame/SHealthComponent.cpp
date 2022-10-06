@@ -3,6 +3,7 @@
 
 #include "SHealthComponent.h"
 
+#include "SGameMode.h"
 #include "Net/UnrealNetwork.h"
 
 // Sets default values for this component's properties
@@ -29,6 +30,11 @@ float USHealthComponent::GetHealth() const
 	return Health;
 }
 
+bool USHealthComponent::IsDead() const
+{
+	return bIsDead;
+}
+
 // Called when the game starts
 void USHealthComponent::BeginPlay()
 {
@@ -47,17 +53,25 @@ void USHealthComponent::BeginPlay()
 }
 
 
-void USHealthComponent::HandleDie()
+void USHealthComponent::HandleDie(AActor* Killer, AController* InstigatedBy)
 {
+	ensure(bIsDead == false);
+	
+	bIsDead = true;
+	
 	AActor* myOwner = GetOwner();
-	//if(myOwner)
-		//myOwner->Destroy();
+
+	ASGameMode* gameMode = Cast<ASGameMode>(GetWorld()->GetAuthGameMode());
+	if(IsValid(gameMode))
+	{
+		gameMode->OnActorKilled.Broadcast(GetOwner(), Killer, InstigatedBy);
+	}
 }
 
 void USHealthComponent::HandleTakeAnyDamage(AActor* Actor, float Damage, const UDamageType* DamageType, AController* Instigated,
                                             AActor* DamageCauser)
 {
-	if(Damage <= 0.0f)
+	if(Damage <= 0.0f || bIsDead)
 		return;
 
 	float newHealth = FMath::Clamp(Health-Damage, 0.0f, DefaultHealth);
@@ -69,7 +83,7 @@ void USHealthComponent::HandleTakeAnyDamage(AActor* Actor, float Damage, const U
 	OnHealthChanged.Broadcast(this, Health, Damage, DamageType, Instigated, DamageCauser);
 	if(FMath::IsNearlyEqual(Health, 0.0f))
 	{
-		HandleDie();
+		HandleDie(DamageCauser, Instigated);
 	}
 }
 

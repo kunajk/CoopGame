@@ -7,11 +7,14 @@
 #include "SCharacter.h"
 #include "SGameState.h"
 #include "SHealthComponent.h"
+#include "SPlayerState.h"
 #include "STrackerBot.h"
+#include "ProfilingDebugging/HealthSnapshot.h"
 
 ASGameMode::ASGameMode()
 {
 	GameStateClass = ASGameState::StaticClass();
+	PlayerStateClass = ASPlayerState::StaticClass();
 	
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.TickInterval = 1.0f;
@@ -66,6 +69,7 @@ void ASGameMode::PrepareForNextWave()
 {
 	GetWorldTimerManager().SetTimer(TimerHandle_NextWaveStarts, this, &ASGameMode::StartWave, TimeBetweenWaves, false);
 	SetGameState(ESGameState::WaitingToStart);
+	RestartDeadPlayers();
 }
 
 void ASGameMode::CheckWaveState()
@@ -123,6 +127,24 @@ void ASGameMode::GameOver()
 	
 	EndWave();
 	UE_LOG(LogTemp, Log, TEXT("GameOver, All player died"));
+}
+
+void ASGameMode::RestartDeadPlayers()
+{
+	for(TActorIterator<ASCharacter> It(GetWorld()); It; ++It)
+	{
+		if(It->IsPlayerControlled())
+		{
+			USHealthComponent* healthComp = Cast<USHealthComponent>(It->GetComponentByClass(USHealthComponent::StaticClass()));
+			if(IsValid(healthComp))
+			{
+				if(healthComp->IsDead())
+				{
+					RestartPlayer(It->GetLocalViewingPlayerController());
+				}
+			}
+		}
+	}
 }
 
 void ASGameMode::SetGameState(ESGameState newGameState)

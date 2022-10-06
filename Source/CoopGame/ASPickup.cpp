@@ -6,7 +6,7 @@
 #include "SPowerUP.h"
 #include "Components/DecalComponent.h"
 #include "Components/SphereComponent.h"
-
+#include "SCharacter.h"
 
 // Sets default values
 AASPickup::AASPickup()
@@ -27,6 +27,10 @@ void AASPickup::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
+	ASCharacter* playerPawn = Cast<ASCharacter>(OtherActor); 
+	if(!IsValid(playerPawn) || !playerPawn->IsPlayerControlled())
+		return;
+	
 	if(HasAuthority() && PowerupInstance)
 	{
 		PowerupInstance->ActivatePowerup(OtherActor);

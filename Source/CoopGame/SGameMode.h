@@ -8,6 +8,11 @@
 
 enum class ESGameState : uint8;
 
+class AActor;
+class AController;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnActorKilled, AActor*, VictimActor, AActor*, KillerActor, AController*, KillerController);
+
 UCLASS()
 class COOPGAME_API ASGameMode : public AGameModeBase
 {
@@ -18,6 +23,9 @@ public:
 	
 	virtual void StartPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
+
+	UPROPERTY(BlueprintAssignable, Category="Coop|GameMode")
+	FOnActorKilled OnActorKilled;
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category="Coop|GameMode")
@@ -33,6 +41,7 @@ protected:
 	void CheckWaveState();
 	bool IsAnyPlayerAlive() const;
 	void GameOver();
+	void RestartDeadPlayers();
 	
 	UPROPERTY(EditDefaultsOnly, Category="Coop|Config")
 	float TimeBetweenWaves{30.0f};

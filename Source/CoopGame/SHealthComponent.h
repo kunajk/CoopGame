@@ -25,12 +25,12 @@ public:
 	void Heal(float HealthToHeal);
 
 	float GetHealth() const;
-	
+	bool IsDead() const;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	void HandleDie();
+	void HandleDie(AActor* Killer, AController* InstigatedBy);
 	
 	UFUNCTION()
 	void HandleTakeAnyDamage(AActor* Actor, float X, const UDamageType* Damage, AController* Controller, AActor* Actor1);
@@ -43,5 +43,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Coop|HealthCOmponent")
 	float DefaultHealth{100.0f};
-	
+
+private:
+	bool bIsDead{false};
 };
