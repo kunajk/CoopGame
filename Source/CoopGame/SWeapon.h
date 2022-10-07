@@ -76,6 +76,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon")
 	int32 BulletsPerMinute{600};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Coop|Weapon", meta=(ClampMin=0.0f))
+	float BulletsSpreadDegrees{2.0f};
 private:
 	virtual void Fire();
 	

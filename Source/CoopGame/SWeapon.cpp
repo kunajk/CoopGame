@@ -52,6 +52,9 @@ void ASWeapon::Fire()
 		FVector shootDirection = eyeRot.Vector();
 		FVector tracerEnd = eyeLoc + (shootDirection * 10000.0f);
 		FVector MuzzleLocation = MeshComp->GetSocketLocation(MuzzleSocketName);
+
+		float halfRad = FMath::DegreesToRadians(BulletsSpreadDegrees);
+		shootDirection = FMath::VRandCone(shootDirection, halfRad, halfRad);
 		
 		FCollisionQueryParams params;
 		params.bTraceComplex = true;
@@ -75,7 +78,7 @@ void ASWeapon::Fire()
 			AActor* hitActor = hit.GetActor();
 			if(IsValid(hitActor))
 			{
-				UGameplayStatics::ApplyPointDamage(hitActor, actualDamage, shootDirection, hit, myOwner->GetInstigatorController(), this, DamageType);
+				UGameplayStatics::ApplyPointDamage(hitActor, actualDamage, shootDirection, hit, myOwner->GetInstigatorController(), myOwner, DamageType);
 			}
 			
 			PlayImpactEffects(surfaceType, hit.ImpactPoint, MuzzleLocation);

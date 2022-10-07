@@ -17,9 +17,12 @@ class COOPGAME_API USHealthComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	USHealthComponent();
-
+	
 	UPROPERTY(BlueprintAssignable, Category="Coop|Events")
 	FOnHealthChangedSignature OnHealthChanged;
+	
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Coop|HealthCOmponent")
+	static bool IsFriendly(AActor* ActorA, AActor* ActorB);
 
 	UFUNCTION(BlueprintCallable, Category="Coop|HealthCOmponent")
 	void Heal(float HealthToHeal);
@@ -43,6 +46,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Coop|HealthCOmponent")
 	float DefaultHealth{100.0f};
+
+	UPROPERTY(BlueprintReadOnly, Replicated, EditDefaultsOnly, Category="Coop")
+	uint8 TeamNum{255};
 
 private:
 	bool bIsDead{false};

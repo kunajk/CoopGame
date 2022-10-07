@@ -57,7 +57,7 @@ protected:
 	bool UseVelocityChange{false};
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
-	float ExplosionRadius{200};
+	float ExplosionRadius{350};
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Coop")
 	float BaseExplosionDamage{100};
@@ -77,6 +77,8 @@ private:
 	void SelfDestruct();
 	void DamageSelf();
 	void OnCheckNearbyBots();
+	AActor* GetClosestTarget() const;
+	void RefreshPath();
 	
 	FVector NextPatchPoint;
 	bool bExploded{false};
@@ -87,6 +89,6 @@ private:
 	UMaterialInstanceDynamic* MatInst;
 
 	FTimerHandle TimerHandle_SelfDamage;
-	
+	FTimerHandle TimerHandle_RefreashPath;
 };
 

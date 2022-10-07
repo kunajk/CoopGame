@@ -3,6 +3,7 @@
 
 #include "STrackerBot.h"
 
+#include "EngineUtils.h"
 #include "NavigationPath.h"
 #include "NavigationSystem.h"
 #include "SCharacter.h"
@@ -10,6 +11,9 @@
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/Public/TimerManager.h"
+
+int32 DebugTrackerBotDrawing = 0;
+FAutoConsoleVariableRef TrackerBot(TEXT("COOP.DebugTrackerBot"), DebugTrackerBotDrawing, TEXT("Draw Debug lines for TrackerBot"), ECVF_Cheat);
 
 // Sets default values
 ASTrackerBot::ASTrackerBot()
@@ -50,19 +54,22 @@ FVector ASTrackerBot::GetNextPatchPoint()
 	if(!ensure(GetLocalRole()==ROLE_Authority))
 		return FVector::Zero();
 	
-	ACharacter* myPawn = UGameplayStatics::GetPlayerCharacter(this, 0);
+	ACharacter* myPawn = Cast<ACharacter>(GetClosestTarget());
 	
 	if(!IsValid(myPawn))
 		return FVector::Zero();
 	
 	UNavigationPath* path = UNavigationSystemV1::FindPathToActorSynchronously(this, GetActorLocation(), myPawn);
 
+	GetWorldTimerManager().ClearTimer(TimerHandle_RefreashPath);
+	GetWorldTimerManager().SetTimer(TimerHandle_RefreashPath, this, &ASTrackerBot::RefreshPath, 5.0f, false);
+	
 	if(path && path->PathPoints.Num() > 1)
 	{
 		return path->PathPoints[1];
 	}
+	
 	return GetActorLocation();
-		
 }
 
 void ASTrackerBot::HandleTakeDamage(USHealthComponent* UsHealthComponent, float Health, float HealthDelta, const UDamageType* Damage,
@@ -100,7 +107,8 @@ void ASTrackerBot::SelfDestruct()
 		UGameplayStatics::ApplyRadialDamage(this, damage, GetActorLocation(), ExplosionRadius, nullptr, ignoredActors, this, GetInstigatorController(), true);
 		SetLifeSpan(2.0f);
 	}
-	//DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 32, FColor::Red, false, 2.0f, 0,1.0f);
+	if(DebugTrackerBotDrawing)
+		DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 32, FColor::Red, false, 2.0f, 0,1.0f);
 }
 
 void ASTrackerBot::DamageSelf()
@@ -147,6 +155,36 @@ void ASTrackerBot::OnCheckNearbyBots()
 	}
 }
 
+AActor* ASTrackerBot::GetClosestTarget() const
+{
+	ASCharacter* closestTarget{nullptr};
+	float closestDistance = TNumericLimits<float>::Max();
+	
+	for(TActorIterator<ASCharacter> It(GetWorld()); It; ++It)
+	{
+		USHealthComponent* healthComp = Cast<USHealthComponent>(It->GetComponentByClass(USHealthComponent::StaticClass()));
+		
+		if(IsValid(healthComp) && (healthComp->GetHealth() > 0.0f))
+		{
+			if(It->IsPlayerControlled())
+			{
+				float distanceToBot = (GetActorLocation() - It->GetActorLocation()).Length();
+				if(distanceToBot < closestDistance)
+				{
+					closestDistance = distanceToBot;
+					closestTarget = *It;
+				}
+			}
+		}
+	}
+	return closestTarget;
+}
+
+void ASTrackerBot::RefreshPath()
+{
+	NextPatchPoint = GetNextPatchPoint();
+}
+
 // Called every frame
 void ASTrackerBot::Tick(float DeltaTime)
 {
@@ -163,14 +201,18 @@ void ASTrackerBot::Tick(float DeltaTime)
 		forceDirection *= MoveForce;
 		MeshComp->AddForce(forceDirection, NAME_None, UseVelocityChange);
 
-		//DrawDebugDirectionalArrow(GetWorld(), GetActorLocation(), GetActorLocation() + forceDirection, 32.0f, FColor::Yellow);
+		if(DebugTrackerBotDrawing)
+			DrawDebugDirectionalArrow(GetWorld(), GetActorLocation(), GetActorLocation() + forceDirection, 32.0f, FColor::Yellow);
 	}
 	else
 	{
 		NextPatchPoint = GetNextPatchPoint();
-		//DrawDebugString(GetWorld(), GetActorLocation(), TEXT("Target reached!"));
+
+		if(DebugTrackerBotDrawing)
+			DrawDebugString(GetWorld(), GetActorLocation(), TEXT("Target reached!"));
 	}
-	//DrawDebugSphere(GetWorld(), NextPatchPoint, 20.0f, 12, FColor::Blue, false, 0.0f, 1.0f);
+	if(DebugTrackerBotDrawing)
+		DrawDebugSphere(GetWorld(), NextPatchPoint, 20.0f, 12, FColor::Blue, false, 0.0f, 1.0f);
 }
 
 void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)
@@ -178,6 +220,9 @@ void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)
 	Super::NotifyActorBeginOverlap(OtherActor);
 
 	if(bStartedSelfDestruction || bExploded)
+		return;
+
+	if(USHealthComponent::IsFriendly(this, OtherActor))
 		return;
 	
 	ASCharacter* playerPawn = Cast<ASCharacter>(OtherActor);

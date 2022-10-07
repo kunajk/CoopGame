@@ -13,6 +13,20 @@ USHealthComponent::USHealthComponent()
 }
 
 
+bool USHealthComponent::IsFriendly(AActor* ActorA, AActor* ActorB)
+{
+	if(!IsValid(ActorA) || !IsValid(ActorB))
+		return true;
+	
+	USHealthComponent* healthCompA = Cast<USHealthComponent>(ActorA->GetComponentByClass(USHealthComponent::StaticClass()));
+	USHealthComponent* healthCompB = Cast<USHealthComponent>(ActorB->GetComponentByClass(USHealthComponent::StaticClass()));
+
+	if(!IsValid(healthCompA) || !IsValid(healthCompB))
+		return true;
+
+	return healthCompA->TeamNum == healthCompB->TeamNum;
+}
+
 void USHealthComponent::Heal(float HealthToHeal)
 {
 	if(HealthToHeal <= 0.0f || Health <= 0.0f)
@@ -74,6 +88,9 @@ void USHealthComponent::HandleTakeAnyDamage(AActor* Actor, float Damage, const U
 	if(Damage <= 0.0f || bIsDead)
 		return;
 
+	if(DamageCauser != Actor && IsFriendly(DamageCauser, Actor))
+		return;
+
 	float newHealth = FMath::Clamp(Health-Damage, 0.0f, DefaultHealth);
 	
 	UE_LOG(LogTemp, Log, TEXT("Health changed from %0.2f to %0.2f, and sanitized float: %s"), Health, newHealth, *FString::SanitizeFloat(Health));
@@ -97,5 +114,6 @@ void USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(USHealthComponent, Health);
+	DOREPLIFETIME(USHealthComponent, TeamNum);
 }
 
